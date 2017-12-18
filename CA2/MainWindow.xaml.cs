@@ -74,7 +74,6 @@ namespace CA2
             listboxAuthors.ItemsSource = null;
             listboxAuthors.ItemsSource = authors;
         }
-
         private void listboxAuthors_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Author selected = listboxAuthors.SelectedItem as Author;
@@ -83,37 +82,9 @@ namespace CA2
                 listboxBooks.ItemsSource = selected.Books;
             }
         }
-
         private void Searchbox_TextChanged(object sender, TextChangedEventArgs e)
         {
             string searchTerm = Searchbox.Text;
-        }
-    }
-    class Author : IComparable
-    {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public Book[] Books { get; set; }
-
-        public int CompareTo(object obj)
-        {
-            Author temp = (Author)obj;
-            return String.Compare(this.LastName, temp.LastName);
-        }
-        public override string ToString()
-        {
-            return FirstName + ", " + LastName;
-        }
-    }
-    class Book
-    {
-        public string Title { get; set; }
-        public double Price { get; set; }
-        public int Pages { get; set; }
-
-        public override string ToString()
-        {
-            return Title + ", " + Pages + " pages - €" + Price;
         }
     }
 }
