@@ -15,6 +15,10 @@ using System.Windows.Shapes;
 
 namespace CA2
 {
+     /*
+     * MainWindow.xaml.cs should on contain only UI Methods/Event Handlers
+     * Keep classes in separate .cs files
+     */
     public partial class MainWindow : Window
     {
         //Keep your arrays at class level so they're accessable throughout the entire program
@@ -109,12 +113,32 @@ namespace CA2
         }
         private void Searchbox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            // Search term being the text inside the searchbox
-            string searchTerm = Searchbox.Text;
+            // Search term being the text inside the searchbox, convert to upper to ingnore case sensitive
+            string searchTerm = Searchbox.Text.ToUpper();
+
+            //if the searchterm is eqaul to an authors first or last name
+            if (searchTerm != "" && searchTerm != null)
+            {
+                //This line will dynamically search the authors array based on first or last name using the list function Where
+                listboxAuthors.ItemsSource = authors.Where(a => a.FirstName.ToUpper().Contains(searchTerm) || a.LastName.ToUpper().Contains(searchTerm));
+            }
+            else
+            {
+                // if you search something then delete that search the all authors will reappear
+                listboxAuthors.ItemsSource = authors;
+            }
+        }
+        //click search to search but it will dynamically search anyway
+        private void buttonSearch_Click(object sender, RoutedEventArgs e)
+        {
+            string searchTerm = Searchbox.Text.ToUpper();
+
+            //if the searchterm is eqaul to an authors first or last name
+            if (searchTerm != "" && searchTerm != null)
+            {
+                //This line will dynamically search the authors array based on first or last name using a list function Where
+                listboxAuthors.ItemsSource = authors.Where(a => a.FirstName.ToUpper().Contains(searchTerm) || a.LastName.ToUpper().Contains(searchTerm));
+            }
         }
     }
 }
-/*
- * MainWindow.xaml.cs should on contain UI Methods/Event Handlers
- * Keep classes in separate .cs files
- */
